@@ -283,6 +283,7 @@ void Game::Gameboard::set_text_color( unsigned char r
  **/
 void Game::Gameboard::update_screen() {
     SDL_RenderPresent(renderer);
+    SDL_RenderClear(renderer);
     return;
 }
 
@@ -344,8 +345,12 @@ void Game::Gameboard::draw_texture(int xpos
                             , int ypos
                             , SDL_Texture *input) {
     SDL_Rect temp;
+
+    temp.x = xpos;
+    temp.y = ypos;
+    
     // WHY
     // Also, sets temp.x and temp.y to reflect given texture.
-    SDL_QueryTexture(input, NULL, NULL, &temp.x, &temp.y);
+    SDL_QueryTexture(input, NULL, NULL, &temp.w, &temp.h);
     SDL_RenderCopy(renderer, input, NULL, &temp);
 }
