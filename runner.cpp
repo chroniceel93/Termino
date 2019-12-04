@@ -8,6 +8,7 @@ int main() {
     bob_face.load_texture("test.png");
 
     for (auto i = 0; 1!= 0;) {
+        bob_face.draw_texture(0, 0);
     }
 
     return 0;

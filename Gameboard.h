@@ -22,6 +22,7 @@ namespace Game {
 // will keep, likely makes it more portable... if I want to gut sdl code...
 // input and most logic in other games will still be usable.
     enum KeyPressed {
+        k_wait,
         k_up,
         k_right,
         k_down,
@@ -45,8 +46,6 @@ namespace Game {
     private:
         // these variables will be used once I implement logic to determine
         // pixel size given arbitrary screen size.
-        int bloc_height; // how high the block is
-        int bloc_width; // how wide a block is
 
         int score;
 
@@ -57,8 +56,6 @@ namespace Game {
         // should abort immediately
 
         SDL_Window *window; // SDL window object
-        SDL_Texture *render_texture; // SDL texture object (this
-                                    //holds gameboard state)
         SDL_Renderer *renderer; // SDL renderer object (this draws to things)
         SDL_Color background, text;  // background color
         SDL_Event input; // input queue
@@ -68,6 +65,11 @@ namespace Game {
         KeyPressed mem; // stores last valid input
 
         friend class Gameboard_TEX;
+
+        void draw_texture ( int xpos
+            , int ypos
+            , SDL_Texture *input);
+
 
     public:
 
@@ -124,6 +126,7 @@ namespace Game {
             , int ypos
             , std::string input);
 
+
 /**
  * void input_reset()
  *
@@ -149,7 +152,7 @@ namespace Game {
 /**
  * void update_screen()
  *
- * copies the texture to the screen surface and presents that surface
+ * Presensts screen surface.
  **/
         void update_screen();
 

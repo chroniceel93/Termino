@@ -68,5 +68,5 @@ void Game::Gameboard_TEX::load_texture(std::string path
 }
 
 void Game::Gameboard_TEX::draw_texture(int x, int y) {
- 
+    game->draw_texture(x, y, texture);
 }

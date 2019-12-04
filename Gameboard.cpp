@@ -2,7 +2,7 @@
 
 // Constructor
 Game::Gameboard::Gameboard() {
-    SDL_Status = true; // assume sdl will work, unless it does not
+    SDL_Status = true; // sdl_status is true until it fails
 
     // default background color (black)
     background.r = 0;
@@ -13,10 +13,7 @@ Game::Gameboard::Gameboard() {
     text.g = 255;
     text.b = 255;
 
-    bloc_width = 10;
-    bloc_height = 10;
-
-    mem = k_right; // default key
+    mem = k_wait; // default key
 
     // init sdl
 
@@ -74,19 +71,11 @@ Game::Gameboard::Gameboard() {
                         , background.b
                         , 255);
 
-                    // init texture
-                    render_texture = SDL_CreateTexture(renderer
-                        , SDL_PIXELFORMAT_RGBA8888
-                        , SDL_TEXTUREACCESS_TARGET
-                        , 800
-                        , 600);
-
-                    // set texture as render target
-                    SDL_SetRenderTarget(renderer, render_texture);
-
                     // calls blank_screen() to color the texture to match
                     // background color
-                    blank_screen();
+                    //blank_screen();
+
+                    SDL_RenderClear(renderer);
 
                     // present the renderer!
                     SDL_RenderPresent(renderer);
@@ -146,6 +135,8 @@ void Game::Gameboard::blank_screen() {
  * at that co-ordinate.
  *
  * Assumes that the co-ordinates conform to an 80x60 grid.
+ * 
+ * Depreciated, but still a thing I can use? For debuggling logic?
  **/
 void Game::Gameboard::draw_block( int xpos
     , int ypos
@@ -179,8 +170,8 @@ void Game::Gameboard::draw_block( int xpos
 
     SDL_Rect temp; // temp rect used to draw the block
     // set the values in temp to match those given
-    temp.w = bloc_width;
-    temp.h = bloc_height;
+    temp.w = 10;
+    temp.h = 10;
     // xpos and ypos are modified to scale up from 80x60 grid to
     // 800x600 texture
     temp.x = (xpos * 10) - 10;
@@ -252,7 +243,7 @@ void Game::Gameboard::draw_text ( int xpos
  **/
 void Game::Gameboard::input_reset() {
     // sets mem value to that specified in initialiazer
-    mem = k_right;
+    mem = k_wait;
     return;
 }
 
@@ -288,17 +279,10 @@ void Game::Gameboard::set_text_color( unsigned char r
 /**
  * void update_screen()
  *
- * copies the texture to the screen surface and presents that surface
+ * presents screen surface
  **/
 void Game::Gameboard::update_screen() {
-    // unsets the render target, so renderpresent does not invalidate texture?
-    SDL_SetRenderTarget(renderer, NULL);
-    // copy the texture onto the render surface
-    SDL_RenderCopy(renderer, render_texture, 0, 0);
-    // present the render surface
     SDL_RenderPresent(renderer);
-    // set render target back to texture, it is now safe
-    SDL_SetRenderTarget(renderer, render_texture);
     return;
 }
 
@@ -349,9 +333,19 @@ Game::KeyPressed Game::Gameboard::update_input() {
 Game::Gameboard::~Gameboard() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    SDL_DestroyTexture(render_texture);
     renderer = nullptr;
     window = nullptr;
-    render_texture = nullptr;
     SDL_Quit();
+}
+
+// Pivate Definitions
+
+void Game::Gameboard::draw_texture(int xpos
+                            , int ypos
+                            , SDL_Texture *input) {
+    SDL_Rect temp;
+    // WHY
+    // Also, sets temp.x and temp.y to reflect given texture.
+    SDL_QueryTexture(input, NULL, NULL, &temp.x, &temp.y);
+    SDL_RenderCopy(renderer, input, NULL, &temp);
 }
