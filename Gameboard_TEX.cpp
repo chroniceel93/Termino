@@ -68,5 +68,14 @@ void Game::Gameboard_TEX::load_texture(std::string path
 }
 
 void Game::Gameboard_TEX::draw_texture(int x, int y) {
-    game->draw_texture(x, y, texture);
+
+    SDL_Rect temp;
+
+    temp.x = x;
+    temp.y = y;
+    
+    // WHY
+    // Also, sets temp.x and temp.y to reflect given texture.
+    SDL_QueryTexture(texture, NULL, NULL, &temp.w, &temp.h);
+    SDL_RenderCopy(game->renderer, texture, NULL, &temp);
 }

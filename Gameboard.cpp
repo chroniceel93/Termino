@@ -338,19 +338,3 @@ Game::Gameboard::~Gameboard() {
     window = nullptr;
     SDL_Quit();
 }
-
-// Pivate Definitions
-
-void Game::Gameboard::draw_texture(int xpos
-                            , int ypos
-                            , SDL_Texture *input) {
-    SDL_Rect temp;
-
-    temp.x = xpos;
-    temp.y = ypos;
-    
-    // WHY
-    // Also, sets temp.x and temp.y to reflect given texture.
-    SDL_QueryTexture(input, NULL, NULL, &temp.w, &temp.h);
-    SDL_RenderCopy(renderer, input, NULL, &temp);
-}

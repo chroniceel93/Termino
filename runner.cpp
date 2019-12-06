@@ -13,7 +13,7 @@ int main() {
 //288
 //88
 
-    int x = 0;
+    int x = 20;
     int y = 0;
     int direction = 0;
     for (; true;) {

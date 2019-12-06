@@ -66,11 +66,6 @@ namespace Game {
 
         friend class Gameboard_TEX;
 
-        void draw_texture ( int xpos
-            , int ypos
-            , SDL_Texture *input);
-
-
     public:
 
         // Constructor
