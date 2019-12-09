@@ -7,6 +7,7 @@ int main() {
     Tetris::Termino L(&bob);
     for (;true;) {
         L.draw_termino(4, 19);
+        // Work out the math for termino translation to playfield.
         bob.update_screen();
     }  
 
