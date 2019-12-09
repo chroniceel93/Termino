@@ -6,15 +6,18 @@
 
 namespace Tetris{
     class Termino {
-                enum TERM_ID {
+    public:
+        enum TERM_ID {
             L,
             J,
             T,
             I,
             Z,
-            S
+            S,
+            C
         };
 
+    private:
         TERM_ID name;
 
         Game::Gameboard_TEX term_block;
@@ -25,7 +28,7 @@ namespace Tetris{
     public:
 
         // to be of any use, you MUST pass a gameboard object here
-        Termino(Game::Gameboard *gameboard);
+        Termino(Game::Gameboard *gameboard, TERM_ID enter);
 
         void draw_termino(int x, int y);
         ~Termino() {}

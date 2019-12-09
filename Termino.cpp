@@ -1,7 +1,7 @@
 #include "Termino.h"
 
-Tetris::Termino::Termino(Game::Gameboard *gameboard) {
-        name = L;
+Tetris::Termino::Termino(Game::Gameboard *gameboard, TERM_ID enter) {
+        name = enter;
         term_block.set_board(gameboard);
         term_block.load_texture("Term_bloc.png");
 
@@ -21,15 +21,41 @@ Tetris::Termino::Termino(Game::Gameboard *gameboard) {
                 termino_shape[2][2] = true;
                 break;
             case J:
+                termino_rot_size = 3;
+                termino_shape[0][1] = true;
+                termino_shape[0][2] = true;
+                termino_shape[1][1] = true;
+                termino_shape[2][1] = true;
                 break;
             case T:
+                termino_rot_size = 3;
+                termino_shape[0][0] = true;
+                termino_shape[1][0] = true;
+                termino_shape[2][0] = true;
+                termino_shape[1][1] = true;
                 break;
             case I:
+                termino_rot_size = 4;
+                termino_shape[0][0] = true;
+                termino_shape[0][1] = true;
+                termino_shape[0][2] = true;
+                termino_shape[0][3] = true;
                 break;
             case Z:
+                termino_rot_size = 3;
+                termino_shape[0][0] = true;
+                termino_shape[1][0] = true;
+                termino_shape[1][1] = true;
+                termino_shape[1][2] = true;
                 break;
             case S:
                 break;
+            case C:
+                termino_rot_size = 2;
+                termino_shape[0][0] = true;
+                termino_shape[1][0] = true;
+                termino_shape[0][1] = true;
+                termino_shape[1][1] = true;
             default:
                 break;
         }
@@ -40,7 +66,8 @@ void Tetris::Termino::draw_termino(int x, int y) {
         auto x_offset = 0;
         auto y_offset = 0;
 
-        if (x < 20 ) {
+        if (x < 10 ) {
+            x *= 24;
             x += 280;
         } else if (x > 800) {
             x = 0;
@@ -48,7 +75,8 @@ void Tetris::Termino::draw_termino(int x, int y) {
             // input is sane, do nothing
         }
 
-        if (y > 10) {
+        if (y < 20) {
+            y *= 24;
             y += 60;
         } else if (y > 600) {
             y = 0;
@@ -62,7 +90,8 @@ void Tetris::Termino::draw_termino(int x, int y) {
                 x_offset = -24;
                 for (auto w = 0; w < 3; w++) {
                     if (termino_shape[w][h]) {
-                        term_block.draw_texture(x + x_offset, y + y_offset);
+                        term_block.draw_texture((x + x_offset)
+                                                , ( y + y_offset));
                     } else {
 
                     }
