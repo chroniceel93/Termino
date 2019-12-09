@@ -3,6 +3,7 @@
 
 #include "Gameboard.h"
 #include "Gameboard_TEX.h"
+#include "Termino.h"
 
 #include <iostream>
 #include <stdexcept>

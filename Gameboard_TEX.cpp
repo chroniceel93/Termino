@@ -37,6 +37,20 @@ Game::Gameboard_TEX::Gameboard_TEX(Game::Gameboard *board) {
 
 Game::Gameboard_TEX::~Gameboard_TEX() {}
 
+void Game::Gameboard_TEX::draw_texture(int x, int y) {
+
+    SDL_Rect temp;
+
+    temp.x = x;
+    temp.y = y;
+    
+    // WHY
+    // Also, sets temp.x and temp.y to reflect given texture.
+    SDL_QueryTexture(texture, NULL, NULL, &temp.w, &temp.h);
+    SDL_RenderCopy(game->renderer, texture, NULL, &temp);
+}
+
+
 void Game::Gameboard_TEX::load_texture(std::string path) {
     SDL_Surface * temp_surface = IMG_Load(path.c_str());
     if (temp_surface == nullptr) {
@@ -67,15 +81,6 @@ void Game::Gameboard_TEX::load_texture(std::string path
     return;
 }
 
-void Game::Gameboard_TEX::draw_texture(int x, int y) {
-
-    SDL_Rect temp;
-
-    temp.x = x;
-    temp.y = y;
-    
-    // WHY
-    // Also, sets temp.x and temp.y to reflect given texture.
-    SDL_QueryTexture(texture, NULL, NULL, &temp.w, &temp.h);
-    SDL_RenderCopy(game->renderer, texture, NULL, &temp);
+void Game::Gameboard_TEX::set_board(Game::Gameboard *board) {
+    game = board;
 }

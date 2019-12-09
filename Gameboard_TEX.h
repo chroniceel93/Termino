@@ -34,13 +34,15 @@ namespace Game {
 
         ~Gameboard_TEX();
 
+        void draw_texture(int x, int y);
+
+        void draw_texture(int x, int y, int h, int w);
+
         void load_texture(std::string path);
 
         void load_texture(std::string path, Game::Gameboard *board);
 
-        void draw_texture(int x, int y);
-
-        void draw_texture(int x, int y, int h, int w);
+        void set_board(Game::Gameboard *board);
     };
 }
 
