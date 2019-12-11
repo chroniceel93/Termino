@@ -7,20 +7,18 @@ int main() {
     Tetris::Termino Z(&bob, Tetris::Termino::Z);
     for (;true;) {
         L.draw_termino(6, 10);
-       // J.draw_termino(4, 2);
-       // Z.draw_termino(6, 10);
         bob.update_screen();
         SDL_Delay(1000);
-        L.draw_termino(4, 10);
-        bob.update_screen();
-        SDL_Delay(1000);
-        L.draw_termino(2, 10);
-        bob.update_screen();
-        SDL_Delay(1000);
+        L.termino_rotate_cw();
         L.draw_termino(6, 10);
         bob.update_screen();
         SDL_Delay(1000);
-        L.draw_termino(6, 12);
+        L.termino_rotate_cw();
+        L.draw_termino(6, 10);
+        bob.update_screen();
+        SDL_Delay(1000);
+        L.termino_rotate_cw();
+        L.draw_termino(6, 10);
         bob.update_screen();
         SDL_Delay(1000);
         

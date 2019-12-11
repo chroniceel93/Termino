@@ -31,6 +31,10 @@ namespace Tetris{
         Termino(Game::Gameboard *gameboard, TERM_ID enter);
 
         void draw_termino(int x, int y);
+
+        void termino_rotate_cw();
+        void termino_rotate_ccw();
+
         ~Termino() {}
     };
 };

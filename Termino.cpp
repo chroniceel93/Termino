@@ -103,3 +103,37 @@ void Tetris::Termino::draw_termino(int x, int y) {
             term_block.draw_texture(x, y);
         }
     }
+
+
+
+/**
+ * void Tetris::Termino::termino_rotate_cw()
+ * 
+ * for the size three version:
+ * First, takes a full copy of the left and right sides of the termino,
+ * and takes a copy of the middle of the top and bottom rows.
+ * 
+ * Second, reads the left and right copies into the top and bottom rows,
+ * respectively, and reads the middle top and bottom values into the middle
+ * right and left, respectively.
+ **/
+void Tetris::Termino::termino_rotate_cw() {
+    bool rotate_left[3] = {false};
+    bool rotate_right[3] = {false};
+    bool rotate_top = false;
+    bool rotate_bottom = false;
+
+    // read in rotation data
+    for (auto count = 0; count < 3; count++) {
+        rotate_right[count] = termino_shape[2][count];
+        rotate_left[count] = termino_shape[0][count];
+    }
+    rotate_top = termino_shape[1][0];
+    rotate_bottom = termino_shape[1][2];
+    for (auto count = 0; count < 3; count++) {
+        termino_shape[count][2] = rotate_right[count];
+        termino_shape[count][0] = rotate_left[count];
+    }
+    termino_shape[2][1] = rotate_top;
+    termino_shape[0][1] = rotate_bottom;
+}
