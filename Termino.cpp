@@ -102,6 +102,7 @@ void Tetris::Termino::draw_termino(int x, int y) {
         } else {
             term_block.draw_texture(x, y);
         }
+        
     }
 
 
@@ -118,6 +119,7 @@ void Tetris::Termino::draw_termino(int x, int y) {
  * right and left, respectively.
  **/
 void Tetris::Termino::termino_rotate_cw() {
+    /*
     bool rotate_left[3] = {false};
     bool rotate_right[3] = {false};
     bool rotate_top = false;
@@ -136,4 +138,30 @@ void Tetris::Termino::termino_rotate_cw() {
     }
     termino_shape[2][1] = rotate_top;
     termino_shape[0][1] = rotate_bottom;
+    */
+    bool temp[4][4];
+    
+    // copy data rotated by 90 degrees into temporary element
+    // this is done by simply reading in the main element, 
+    // left->right, top->bottom and writing that to the temp
+    // element, top->bottom, right->left
+// TODO: either modify these functions to handle larger terminoes, or make sure to
+// create copes that will handle the larger terminoes. just add one to each magic
+// number
+
+// TODO: Explain the magic numbers. Or come up with class constants?
+    int invert_counter = 2;
+
+    for (auto y = 0; y < 3; y++) {
+        for (auto x = 0; x < 3 ; x++ ) {
+            temp[invert_counter][x] = termino_shape[x][y];
+        }
+        invert_counter--;
+    }
+    // complete copy of temporary element back into termino
+    for (auto x = 0; x < 3; x++) {
+        for (auto y = 0; y < 3 ; y++) {
+            termino_shape[x][y] = temp[x][y];
+        }
+    }
 }
